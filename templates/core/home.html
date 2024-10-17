@@ -1,0 +1,48 @@
+<!-- templates/core/home.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Welcome to Auction Site{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Auction Site</h1>
+    <p class="lead">Find unique items and great deals!</p>
+    <hr class="my-4">
+    <p>Browse our latest auctions or create your own.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'auction:auction_list' %}" role="button">View Auctions</a>
+    {% if user.is_authenticated %}
+        <a class="btn btn-success btn-lg" href="{% url 'auction:auction_create' %}" role="button">Create Auction</a>
+    {% endif %}
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <h2>Latest Auctions</h2>
+        <div class="row">
+            {% for auction in latest_auctions %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ auction.photo.url }}" class="card-img-top" alt="{{ auction.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ auction.name }}</h5>
+                            <p class="card-text">Current Price: ${{ auction.current_price }}</p>
+                            <a href="{{ auction.get_absolute_url }}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h2>Categories</h2>
+        <div class="list-group">
+            {% for category in categories %}
+                <a href="{% url 'auction:category_detail' category.slug %}" 
+                   class="list-group-item list-group-item-action">
+                    {{ category.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

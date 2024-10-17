@@ -1,0 +1,27 @@
+<!-- templates/authentication/profile.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Profile</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <strong>Email:</strong> {{ user.email }}
+                </div>
+                <div class="mb-3">
+                    <strong>Phone:</strong> {{ user.phone_number }}
+                </div>
+                <div class="mb-3">
+                    <strong>Balance:</strong> {{ user.balance }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

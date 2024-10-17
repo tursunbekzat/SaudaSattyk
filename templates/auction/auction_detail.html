@@ -1,0 +1,85 @@
+<!-- templates/auction/auction_detail.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}
+  {{ auction.name }} - Auction Detail
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      <img src="{{ auction.photo.url }}" class="img-fluid" alt="{{ auction.name }}" />
+    </div>
+    <div class="col-md-6">
+      <h1>{{ auction.name }}</h1>
+      <p>
+        <strong>Description:</strong> {{ auction.description }}
+      </p>
+      <p>
+        <strong>Starting Price:</strong> ${{ auction.starting_price }}
+      </p>
+      <p>
+        <strong>Current Price:</strong> ${{ auction.current_price }}
+      </p>
+      <p>
+        <strong>Ends:</strong> {{ auction.end_time }}
+      </p>
+      <p>
+        <strong>Author:</strong> {{ auction.author.username }}
+      </p>
+      <p>
+        <strong>Category:</strong> {{ auction.category.name }}
+      </p>
+
+      {% if auction.is_ended %}
+        <p class="text-danger">This auction has ended.</p>
+        {% if auction.winner %}
+          <p>
+            <strong>Winner:</strong> {{ auction.winner.username }}
+          </p>
+        {% else %}
+          <p>No winner for this auction.</p>
+        {% endif %}
+      {% else %}
+        <p class="text-success">This auction is still active.</p>
+      {% endif %}
+
+
+      {% if user.is_authenticated %}
+        <h5>Place Your Bid</h5>
+        
+        {% if errors %}
+          <div class="alert alert-danger">
+            <ul>
+              {% for error in errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+        
+        <form method="post" action="{% url 'auction:place_bid' auction.slug %}">
+          {% csrf_token %}
+          {{ bid_form.as_p }}
+          <button type="submit" class="btn btn-primary">Place Bid</button>
+        </form>
+      {% else %}
+        <p class="text-warning">Please log in to place a bid.</p>
+      {% endif %}
+      
+    </div>
+  </div>
+
+  <h3>Recent Bids</h3>
+  <ul class="list-group">
+    {% for bid in bids %}
+      <li class="list-group-item">
+        <strong>{{ bid.user.username }}</strong>: ${{ bid.amount }} ({{ bid.created_at }})
+      </li>
+    {% empty %}
+      <li class="list-group-item">No bids placed yet.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'auction:auction_list' %}" class="btn btn-secondary mt-3">Back to Auctions</a>
+{% endblock %}

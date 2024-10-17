@@ -1,0 +1,141 @@
+<!-- templates/auction/auction_form.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Create Auction{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="categories">
+        <p>Вот несколько категорий, которые могут подойти для вашего аукциона:</p>
+        {% comment %} <h3>Categories</h3> {% endcomment %}
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="toggle">Электроника</span>
+                <ul class="sub-categories">
+                    <li>Смартфоны</li>
+                    <li>Ноутбуки</li>
+                    <li>Телевизоры</li>
+                    <li>Аудиотехника</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <span class="toggle">Автомобили</span>
+                <ul class="sub-categories">
+                    <li>Легковые автомобили</li>
+                    <li>Мотоциклы</li>
+                    <li>Запчасти</li>
+                    <li>Аксессуары для автомобилей</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <span class="toggle">Недвижимость</span>
+                <ul class="sub-categories">
+                    <li>Квартиры</li>
+                    <li>Дома</li>
+                    <li>Земельные участки</li>
+                    <li>Коммерческая недвижимость</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <span class="toggle">Мода и аксессуары</span>
+                <ul class="sub-categories">
+                    <li>Одежда</li>
+                    <li>Обувь</li>
+                    <li>Сумки</li>
+                    <li>Украшения</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <span class="toggle">Дом и сад</span>
+                <ul class="sub-categories">
+                    <li>Мебель</li>
+                    <li>Декор</li>
+                    <li>Инструменты</li>
+                    <li>Растения</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <span class="toggle">Спорт и активный отдых</span>
+                <ul class="sub-categories">
+                    <li>Спортивная одежда</li>
+                    <li>Оборудование для фитнеса</li>
+                    <li>Велосипеды</li>
+                    <li>Снаряжение для кемпинга</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <span class="toggle">Коллекционные предметы</span>
+                <ul class="sub-categories">
+                    <li>Монеты</li>
+                    <li>Марки</li>
+                    <li>Искусство</li>
+                    <li>Антиквариат</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <span class="toggle">Книги и медиа</span>
+                <ul class="sub-categories">
+                    <li>Книги</li>
+                    <li>Виниловые пластинки</li>
+                    <li>Фильмы и сериалы</li>
+                    <li>Игры</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <span class="toggle">Игрушки и хобби</span>
+                <ul class="sub-categories">
+                    <li>Конструкторы</li>
+                    <li>Настольные игры</li>
+                    <li>Модели и коллекции</li>
+                    <li>Рукоделие</li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <span class="toggle">Красота и здоровье</span>
+                <ul class="sub-categories">
+                    <li>Косметика</li>
+                    <li>Парфюмерия</li>
+                    <li>Устройства для ухода</li>
+                    <li>Витамины и добавки</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
+    <style>
+        .sub-categories {
+            display: none; /* Скрыть подкатегории по умолчанию */
+        }
+    
+        .toggle {
+            cursor: pointer; /* Указатель для курсора на заголовке */
+            font-weight: bold; /* Сделать заголовок жирным */
+        }
+    </style>
+    
+    <script>
+        // Получаем все элементы с классом "toggle"
+        const toggles = document.querySelectorAll('.toggle');
+    
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const subCategories = toggle.nextElementSibling; // Получаем следующий элемент (подкатегории)
+                if (subCategories.style.display === 'block') {
+                    subCategories.style.display = 'none'; // Скрыть подкатегории
+                } else {
+                    subCategories.style.display = 'block'; // Показать подкатегории
+                }
+            });
+        });
+    </script>
+    
+    
+    <h1>Create Auction</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Отображение формы с помощью метода as_p для удобного форматирования -->
+        <button type="submit" class="btn btn-primary">Create Auction</button>
+    </form>
+    <a href="{% url 'auction:auction_list' %}" class="btn btn-secondary mt-3">Back to Auctions</a>
+</div>
+{% endblock %}

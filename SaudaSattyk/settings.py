@@ -22,11 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-ous(*)jh5jp+y^ug7!iogxihp9h-=yk9$ofo_1eu0!keeko0_z'
 
+GEMINI_API_KEY = 'AIzaSyDlUc8eQqiCtYTWfzSzjNN0_N3TlloCedE'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CRONJOBS = [
+    ('25 13 * * *', 'django.core.management.call_command', ['generate_daily_quiz'])
+]
 
 # Application definition
 
@@ -44,6 +49,8 @@ INSTALLED_APPS = [
     'authentication',
     'core',
     'auction',
+    
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -114,9 +121,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Almaty'
 
 USE_I18N = True
+USE_L10N = True  # Localization (for date/time formatting)
 
 USE_TZ = True
 

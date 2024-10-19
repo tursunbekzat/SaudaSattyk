@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>No Quiz Available</h2>
+<p>Sorry, there's no quiz available at the moment. Please check back later!</p>
+<a href="{% url 'auction:auction_list' %}">Return to Auctions</a>
+{% endblock %}

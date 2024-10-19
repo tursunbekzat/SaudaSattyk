@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Quiz Result</h2>
+<p>Congratulations! You've completed today's quiz.</p>
+<p>Your score: {{ score }} out of 5</p>
+<p>You've earned ${{ earnings }} for your auction balance!</p>
+<a href="{% url 'auction:auction_list' %}">Return to Auctions</a>
+{% endblock %}

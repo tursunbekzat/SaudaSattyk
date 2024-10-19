@@ -25,7 +25,8 @@ class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, blank=True)
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=10000)
+    last_quiz_date = models.DateField(null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

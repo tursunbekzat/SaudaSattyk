@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Quiz Already Taken</h2>
+<p>You've already taken today's quiz. Please come back tomorrow for a new quiz!</p>
+<a href="{% url 'auction:auction_list' %}">Return to Auctions</a>
+{% endblock %}
